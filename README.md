@@ -3,7 +3,9 @@ This is a Readme to install LindMod 6D pose recognition
 Intsall Linemod
 
 *** Please deactivate the conda environment first 
+```
 conda config --set auto_activate_base false
+```
 close and reopen shell to effective
 
 
