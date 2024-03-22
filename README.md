@@ -71,7 +71,7 @@ make install
 # Replace the CMakeList.txt in the LINE-MOD folder with 
 https://github.com/TerenceYCLi/LineMod/blob/main/CMakeLists.txt
 
-# Change the CMAKEFile of glm
+# backup the .CMake of glm
 ```
 sudo mv /usr/lib/cmake/glm/glmConfig-version.cmake /usr/lib/cmake/glm//glmConfig-version.cmake.bk
 ```
@@ -106,3 +106,22 @@ A window should open and display the rendered object in white under different po
 ```
 ./build/Detector
 ```
+
+# restore the glm
+```
+sudo mv /usr/lib/cmake/glm/glmConfig-version.cmake.bk /usr/lib/cmake/glm//glmConfig-version.cmake
+```
+# uncomment the glmConfig.CMake
+```
+# Set the old GLM_INCLUDE_DIRS variable for backwards compatibility
+set(GLM_INCLUDE_DIRS ${_IMPORT_PREFIX})
+
+add_library(glm::glm INTERFACE IMPORTED)
+set_target_properties(glm::glm PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES ${GLM_INCLUDE_DIRS})
+
+mark_as_advanced(glm_DIR)
+set(_IMPORT_PREFIX)
+```
+# reactivate conda
+conda config --set auto_activate_base true
